@@ -31,3 +31,13 @@ Book.create! [
                    user_id: users.sample.id
                  }
              ]
+
+becoming = Book.find_by(title: 'Becoming')
+becoming.comments.create! [
+                             { title: 'Wow', note: 'Good Stuff!' },
+                             { title: 'Intriguing', note: 'Does not put you to sleep.' }
+                         ]
+
+
+
+

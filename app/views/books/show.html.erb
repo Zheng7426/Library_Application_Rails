@@ -26,4 +26,30 @@
 </p>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
+
+<div id="comments">
+  <%= render @book.comments %>
+</div>
+
+<div>
+  <%= form_for([@book, @book.comments.new]) do |f| %>
+    <div class="field">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+
+    <div class="field">
+      <%= f.label :note %>
+      <%= f.text_area :note,  size: '25x5' %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit 'Add New Note' %>
+    </div>
+  <% end %>
+</div>
+
+
+
+
 <%= link_to 'Back', books_path %>
