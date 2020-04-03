@@ -7,9 +7,9 @@ class BooksController < ApplicationController
     @books = Book.all
     @books_return = @books
     @genre_id = params[:genre_id]
-    if (@genre_id == 1)
+    if (@genre_id == '1')
       @books_return = @books.find_all {|b| b.genre == 'hardcover-fiction'}
-    elsif (@genre_id == 2)
+    elsif (@genre_id == '2')
       @books_return = @books.find_all {|b| b.genre == 'hardcover-nonfiction'}
     else
       @books_return = @books.find_all {|b| b.genre == 'animals'}

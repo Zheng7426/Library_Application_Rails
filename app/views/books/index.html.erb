@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Books</h1>
-<%= form_with(method: "get")do |form| %>
+<%= form_with(local: true, method: "get") do |form| %>
   <%= select_tag(:genre_id, options_for_select([['hardcover-fiction', 1], ['hardcover-nonfiction', 2], ['animals', 3]])) %>
   <div class="actions">
     <%= form.submit %>
