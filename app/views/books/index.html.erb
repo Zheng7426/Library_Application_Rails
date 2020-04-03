@@ -1,7 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Books</h1>
-
+<%= form_with(method: "get")do |form| %>
+  <%= select_tag(:genre_id, options_for_select([['hardcover-fiction', 1], ['hardcover-nonfiction', 2], ['animals', 3]])) %>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+<p><%= @genre_id %></p>
 <table>
   <thead>
     <tr>
@@ -12,13 +18,13 @@
   </thead>
 
   <tbody>
-    <% @hardcover_fiction.each do |book| %>
+    <% @books_return.each do |book| %>
       <tr>
         <td><%= book.title %></td>
         <td><%= book.author %></td>
         <td><%= link_to 'Show', book %></td>
-        <td><%= link_to 'Edit', edit_book_path(book) %></td>
-        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<!--        <td><%#= link_to 'Edit', edit_book_path(book) %></td>-->
+<!--        <td><%#= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
       </tr>
     <% end %>
   </tbody>

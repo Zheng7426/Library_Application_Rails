@@ -5,9 +5,17 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.all
-    @hardcover_fiction = @books.find_all {|b| b.genre == 'hardcover-fiction'}
-    @hardcover_nonfiction = @books.find_all {|b| b.genre == 'hardcover-nonfiction'}
-    @animals = @books.find_all {|b| b.genre == 'animals'}
+    @books_return = @books
+    @genre_id = params[:genre_id]
+    if (@genre_id == 1)
+      @books_return = @books.find_all {|b| b.genre == 'hardcover-fiction'}
+    elsif (@genre_id == 2)
+      @books_return = @books.find_all {|b| b.genre == 'hardcover-nonfiction'}
+    else
+      @books_return = @books.find_all {|b| b.genre == 'animals'}
+    end
+
+
   end
 
   # GET /books/1
