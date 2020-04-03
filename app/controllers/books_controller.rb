@@ -5,6 +5,9 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.all
+    @hardcover_fiction = @books.find_all {|b| b.genre == 'hardcover-fiction'}
+    @hardcover_nonfiction = @books.find_all {|b| b.genre == 'hardcover-nonfiction'}
+    @animals = @books.find_all {|b| b.genre == 'animals'}
   end
 
   # GET /books/1

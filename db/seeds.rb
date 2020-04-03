@@ -10,9 +10,17 @@ Book.destroy_all
 User.destroy_all
 
 users = User.create! [
-                         { name: 'Peter Parker', password_digest: 'abc123' },
-                         { name: 'William Delos', password_digest: 'abc123' },
-                         { name: 'Goodwill Hunting', password_digest: 'abc123' }
+                         { name: 'Peter', password_digest: 'abc123' },
+                         { name: 'Mercury', password_digest: 'abc123' },
+                         { name: 'Sam', password_digest: 'abc123' },
+                         { name: 'Jon', password_digest: 'abc123' },
+                         { name: 'Snow', password_digest: 'abc123' },
+                         { name: 'Parker', password_digest: 'abc123' },
+                         { name: 'William', password_digest: 'abc123' },
+                         { name: 'Delos', password_digest: 'abc123' },
+                         { name: 'Liam', password_digest: 'abc123' },
+                         { name: 'Noel', password_digest: 'abc123' },
+                         { name: 'Freddie', password_digest: 'abc123' }
                      ]
 
 Book.create! [
