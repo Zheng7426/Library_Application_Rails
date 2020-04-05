@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_05_004347) do
+ActiveRecord::Schema.define(version: 2020_04_05_033625) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -45,6 +45,21 @@ ActiveRecord::Schema.define(version: 2020_04_05_004347) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_favorite_books_on_book_id"
     t.index ["user_id"], name: "index_favorite_books_on_user_id"
+  end
+
+  create_table "popularities", force: :cascade do |t|
+    t.string "isbn"
+    t.integer "future_ranking"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "similarity_matrices", force: :cascade do |t|
+    t.string "isbn1"
+    t.string "isbn2"
+    t.decimal "similarity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

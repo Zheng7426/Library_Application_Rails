@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  isbn1: MyString
+  isbn2: MyString
+  similarity: 9.99
+
+two:
+  isbn1: MyString
+  isbn2: MyString
+  similarity: 9.99
