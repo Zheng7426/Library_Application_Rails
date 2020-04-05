@@ -11,7 +11,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Title</th>
       <th>Author</th>
       <th colspan="3"></th>
     </tr>
@@ -28,6 +28,9 @@
             <%= link_to "favorite",   favorite_book_path(book, type: "favorite"), method: :put %>
             <%= link_to "unfavorite", favorite_book_path(book, type: "unfavorite"), method: :put %>
           <% end %>
+          <% if logged_in_as_employee? %>
+            <%= link_to 'Edit', edit_book_path(book) %>
+          <% end %>
         </td>
 <!--        <td><%#= link_to 'Edit', edit_book_path(book) %></td>-->
 <!--        <td><%#= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
@@ -38,4 +41,5 @@
 
 <br>
 
-<%= link_to 'New Book', new_book_path %>
+<%#= link_to 'New Book', new_book_path %>
+<%= link_to 'Bookmark Page', bookmark_path %>

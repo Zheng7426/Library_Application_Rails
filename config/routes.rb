@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get '/login' => 'sessions#new', as: 'login'
   delete '/logout' => 'sessions#destroy', as: 'logout'
-
+  get '/bookmark' => 'books#bookmark', as: 'bookmark'
   resources :books do
       put :favorite, on: :member
       resources :comments, only: [:create, :destroy]
