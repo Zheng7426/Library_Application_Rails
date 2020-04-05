@@ -15,9 +15,8 @@
     Logged in as <%= current_user.name %> |
     <%= link_to 'Logout', logout_path, method: :delete %>
   </div>
-  <% end %>
 
-  <% if logged_in_as_employee? %>
+  <% elsif logged_in_as_employee? %>
     <div style="float:right">
       Logged in as Employee <%= current_user.name %> |
       <%= link_to 'Logout', logout_path, method: :delete %>

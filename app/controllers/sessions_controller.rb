@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       redirect_to root_path, notice: 'Logged in successfully'
     elsif user.employee_number != nil
       session[:user_id] = user.id
-      session[:employee_number] == user.employee_number
+      session[:employee_number] = user.employee_number
       redirect_to root_path, notice: 'Logged in as Employee successfully'
     else
       redirect_to login_path, alert: 'Invalid username/password combination'
