@@ -74,6 +74,20 @@ class BooksController < ApplicationController
     end
   end
 
+  def favorite
+    @book = Book.find(params[:id])
+    type = params[:type]
+    if type == "favorite"
+      current_user.favorites << @book
+      redirect_to root_path, notice: "You favorited #{@book.title}"
+    elsif type == "unfavorite"
+      current_user.favorites.delete(@book)
+      redirect_to root_path, notice: "Unfavorited #{@book.title}"
+    else
+      redirect_to root_path, notice: "All good."
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
