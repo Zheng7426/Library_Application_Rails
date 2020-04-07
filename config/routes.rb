@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   delete '/logout' => 'sessions#destroy', as: 'logout'
 
   get '/bookmark' => 'books#bookmark', as: 'bookmark'
+  get '/procurement-list' => 'books#procurement_list', as: 'list'
   resources :books do
       put :favorite, on: :member
+      put :purchase, on: :member
       resources :comments, only: [:create, :destroy]
   end
   root 'books#index'
