@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="development" uuid="301ad06e-abbf-4b0d-8225-34a425f0c809">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Ken Tsoi\OneDrive - HKUST Connect\Dev\ROR\Library_Application_Rails\db\development.sqlite3</jdbc-url>
+    </data-source>
+  </component>
+</project>
