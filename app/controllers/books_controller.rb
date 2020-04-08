@@ -88,6 +88,26 @@ class BooksController < ApplicationController
     end
   end
 
+  def purchase
+    @book = Book.find(params[:id])
+    selection = params[:selection]
+    if selection == "purchase_more"
+      current_user.selected << @book
+      redirect_to root_path, notice: "You added #{@book.title} to the procurement list"
+    # elsif type == "unfavorite"
+    #   current_user.favorites.delete(@book)
+    #   redirect_to root_path, notice: "Unfavorited #{@book.title}"
+    else
+      redirect_to root_path, notice: "All good."
+    end
+  end
+
+  def procurement_list
+
+  end
+
+
+
   def bookmark
 
   end
