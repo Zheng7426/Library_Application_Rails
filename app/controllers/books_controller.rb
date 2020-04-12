@@ -6,15 +6,11 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.all
-    @books_return = @books
-    @genre_id = params[:genre_id]
-    if (@genre_id == '1')
-      @books_return = @books.find_all {|b| b.genre == 'hardcover-fiction'}
-    elsif (@genre_id == '2')
-      @books_return = @books.find_all {|b| b.genre == 'hardcover-nonfiction'}
-    else
-      @books_return = @books.find_all {|b| b.genre == 'animals'}
-    end
+
+    #prepare and format genre list
+    @genre = get_formatted_genre_list(@books.as_json)
+    @genre_id = (params[:genre_id].to_i||1).clamp(1, @genre.length)
+    @books_return = filter_book_list_activerecord(@books, @genre, @genre_id)
   end
 
   # GET /books/1
@@ -116,17 +112,12 @@ class BooksController < ApplicationController
     end
     @new_books = @new_books.sort_by {|k| k["future_ranking"]}
 
-    #get all the genre, and format it to the format of pull-down selector
-    @temp = @new_books.map{|x| x["genre"]}.uniq
-
-    @genre = []
-    @temp.each do |x|
-      @genre << [x, @temp.find_index(x)+1]
-    end
+    #prepare and format genre list
+    @genre = get_formatted_genre_list(@new_books)
 
     #get genre id to display
     @genre_id = (params[:genre_id].to_i||1).clamp(1, @genre.length)
-    @books_return = @new_books.select {|b| b["genre"]==@genre[@genre_id-1][0]}
+    @books_return = filter_book_list_hash(@new_books, @genre, @genre_id)
   end
 
   private
@@ -138,5 +129,25 @@ class BooksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def book_params
       params.require(:book).permit(:title, :author)
+    end
+
+    #get all the genres, and format it to the format of pull-down selector
+    #books in JSON format
+    def get_formatted_genre_list(books)
+      temp = books.map{|x| x["genre"]}.uniq
+
+      genre = []
+      temp.each do |x|
+        genre << [x, temp.find_index(x)+1]
+      end
+      return genre
+    end
+
+    def filter_book_list_hash(books, genre, genre_id)
+      books.select {|b| b["genre"]==genre[genre_id-1][0]}
+    end
+
+    def filter_book_list_activerecord(books, genre, genre_id)
+      books.find_all {|b| b.genre == genre[genre_id-1][0]}
     end
 end

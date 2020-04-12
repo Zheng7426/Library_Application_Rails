@@ -24,10 +24,13 @@
       <td><%= book["title"] %></td>
       <td><%= book["author"]%></td>
       <td><%= book["future_ranking"]%></td>
+      <td>
+        <%= link_to "Add to Procurement List", purchase_book_path(book, selection: "purchase_more"), method: :put, class: "btn btn-success" %>
+      </td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
 <br>
-<%= link_to 'Bookmark Page', bookmark_path %>
+<%= link_to 'Procurement List', list_path %>

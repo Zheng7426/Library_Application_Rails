@@ -1,10 +1,12 @@
 <!--<p id="notice"><%#= notice %></p>-->
 
 <h1>Books</h1>
+
 <%= form_with(local: true, method: "get") do |form| %>
-  <%= select_tag(:genre_id, options_for_select([['hardcover-fiction', 1], ['hardcover-nonfiction', 2], ['animals', 3]])) %>
+  <%= select_tag(:genre_id, options_for_select(@genre, @genre_id)) %>
   <%= form.submit 'Filter', class: "btn btn-primary"%>
 <% end %>
+
 <table>
   <thead>
     <tr>
@@ -21,16 +23,9 @@
         <td><%= book.author %></td>
         <td><%= link_to 'Show', book, class: "btn btn-dark"%></td>
         <td>
-          <% if current_user && !logged_in_as_employee? %>
             <%= link_to "favorite",   favorite_book_path(book, type: "favorite"), method: :put %>
             <%= link_to "unfavorite", favorite_book_path(book, type: "unfavorite"), method: :put %>
-          <% end %>
-          <% if logged_in_as_employee? %>
-            <%= link_to "Add to Procurement List",   purchase_book_path(book, selection: "purchase_more"), method: :put, class: "btn btn-success" %>
-          <% end %>
         </td>
-<!--        <td><%#= link_to 'Edit', edit_book_path(book) %></td>-->
-<!--        <td><%#= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
       </tr>
     <% end %>
   </tbody>
@@ -38,9 +33,4 @@
 
 <br>
 
-<%#= link_to 'New Book', new_book_path %>
-<% if !logged_in_as_employee? %>
 <%= link_to 'Bookmark Page', bookmark_path %>
-<% elsif logged_in_as_employee? %>
-  <%= link_to 'Procurement List', list_path %>
-<% end %>
