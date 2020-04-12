@@ -23,8 +23,8 @@
         <td><%= book.author %></td>
         <td><%= link_to 'Show', book, class: "btn btn-dark"%></td>
         <td>
-            <%= link_to "favorite",   favorite_book_path(book, type: "favorite"), method: :put %>
-            <%= link_to "unfavorite", favorite_book_path(book, type: "unfavorite"), method: :put %>
+            <%= link_to "favorite",   favorite_book_path(book, type: "favorite"), method: :put, class: "btn btn-success" %>
+            <%= link_to "unfavorite", favorite_book_path(book, type: "unfavorite"), method: :put, class: "btn btn-warning" %>
         </td>
       </tr>
     <% end %>

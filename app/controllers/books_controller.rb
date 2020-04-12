@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
-  skip_before_action :check_internal, :only => :internal
+  skip_before_action :check_internal, only: [:internal, :purchase, :procurement_list]
   before_action :set_book, only: [:show, :edit, :update, :destroy]
+  helper_method :get_book
 
   # GET /books
   # GET /books.json
@@ -84,21 +85,22 @@ class BooksController < ApplicationController
   end
 
   def purchase
-    @book = Book.find(params[:id])
+    @book = Book.find_by_isbn(params[:isbn])
     selection = params[:selection]
     if selection == "purchase_more"
-      current_user.selected << @book
-      redirect_to root_path, notice: "You added #{@book.title} to the procurement list"
-    # elsif type == "unfavorite"
-    #   current_user.favorites.delete(@book)
-    #   redirect_to root_path, notice: "Unfavorited #{@book.title}"
+      if current_user.selected.detect {|b| b.isbn.to_s == params[:isbn] }.nil?
+        current_user.selected << @book
+        @notice = "You added  #{@book.title}  to the procurement list"
+      else
+        @notice = "#{@book.title}  is already on the procurement list"
+      end
+      redirect_to root_path, notice: "#{@notice}"
     else
       redirect_to root_path, notice: "All good."
     end
   end
 
   def procurement_list
-
   end
 
   def internal
@@ -149,5 +151,9 @@ class BooksController < ApplicationController
 
     def filter_book_list_activerecord(books, genre, genre_id)
       books.find_all {|b| b.genre == genre[genre_id-1][0]}
+    end
+
+    def get_book(books, isbn)
+      books.where(isbn:isbn)
     end
 end
