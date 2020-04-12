@@ -128,7 +128,7 @@ Book.create! [
                    author: 'Harlan Coben',
                    summary: 'When a girl goes missing, a private investigator’s feral childhood becomes an asset in the search.',
                    genre: 'hardcover-fiction',
-                   isbn: '',
+                   isbn: '9781473567221',
 
                  },
 

@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootstrap', '~> 4.0'
 gem 'jquery-rails'
 gem 'rails_12factor', group: :production
+gem 'httparty', '~> 0.18.0'
+gem 'json', '~> 2.3.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
