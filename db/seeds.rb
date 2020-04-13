@@ -9,21 +9,21 @@
 #byebug
 Book.destroy_all
 
-User.destroy_all
+# User.destroy_all
 
-users = User.create! [
-                         { name: 'Peter', password: 'abc123' },
-                         { name: 'Mercury', password: 'abc123' },
-                         { name: 'Sam', password: 'abc123' },
-                         { name: 'Jon', password: 'abc123' },
-                         { name: 'Snow', password: 'abc123' },
-                         { name: 'Parker', password: 'abc123' },
-                         { name: 'William', password: 'abc123' },
-                         { name: 'Delos', password: 'abc123' },
-                         { name: 'Liam', password: 'abc123' },
-                         { name: 'Noel', password: 'abc123', employee_number: '2' },
-                         { name: 'Freddie', password: 'abc123', employee_number: '1' }
-                     ]
+# users = User.create! [
+#                          { name: 'Peter', password: 'abc123' },
+#                          { name: 'Mercury', password: 'abc123' },
+#                          { name: 'Sam', password: 'abc123' },
+#                          { name: 'Jon', password: 'abc123' },
+#                          { name: 'Snow', password: 'abc123' },
+#                          { name: 'Parker', password: 'abc123' },
+#                          { name: 'William', password: 'abc123' },
+#                          { name: 'Delos', password: 'abc123' },
+#                          { name: 'Liam', password: 'abc123' },
+#                          { name: 'Noel', password: 'abc123', employee_number: '2' },
+#                          { name: 'Freddie', password: 'abc123', employee_number: '1' }
+#                      ]
 
 books = Book.create! [
                  # hardcover non-fiction

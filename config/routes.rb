@@ -1,17 +1,18 @@
 Rails.application.routes.draw do
+  devise_for :users
   # get 'users/new'
   # get 'users/create'
   # get 'users/destroy'
   # resources :users, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create, :destroy]
-  get '/signup' => 'users#new', as: 'signup'
+  # get '/signup' => 'users#new', as: 'signup'
   # get 'sessions/new'
   # get 'sessions/create'
   # get 'sessions/destroy'
-  resources :sessions, only: [:new, :create, :destroy]
+  # resources :sessions, only: [:new, :create, :destroy]
 
-  get '/login' => 'sessions#new', as: 'login'
-  delete '/logout' => 'sessions#destroy', as: 'logout'
+  # get '/login' => 'sessions#new', as: 'login'
+  # delete '/logout' => 'sessions#destroy', as: 'logout'
 
   get '/bookmark' => 'books#bookmark', as: 'bookmark'
   get '/procurement-list' => 'books#procurement_list', as: 'list'

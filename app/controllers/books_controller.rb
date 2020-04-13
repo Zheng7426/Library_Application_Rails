@@ -15,6 +15,7 @@ class BooksController < ApplicationController
     @genre = get_formatted_genre_list(@books.as_json)
     @genre_id = (params[:genre_id].to_i||1).clamp(1, @genre.length)
     @books_return = filter_book_list_activerecord(@books, @genre, @genre_id)
+      #@books_return = filter_book_list_activerecord(@books, @genre
   end
 
   # GET /books/1
