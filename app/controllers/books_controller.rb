@@ -128,6 +128,7 @@ class BooksController < ApplicationController
   def actions
     @book = Book.find_by_isbn(params[:isbn])
     @similarity = Book.similarity_ranking(params[:isbn])
+    @similarity = @similarity.detect {|b| b["isbn"].to_s == params[:isbn]} #workaround for Mockaroo bug
     @similarity["similarity_table"] = JSON.load(@similarity["similarity_table"])
   end
 
