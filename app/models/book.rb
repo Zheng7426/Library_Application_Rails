@@ -14,10 +14,10 @@ class Book < ApplicationRecord
   # has_one :popularity, foreign_key: :isbn, class_name: "Popularity"
 
   def self.popularity()
-    HTTParty.get('https://my.api.mockaroo.com/popularity.json?key=da404bc0')
+    HTTParty.get("https://my.api.mockaroo.com/popularity.json?key=da404bc0")
   end
 
   def self.similarity_ranking(isbn)
-    HTTParty.get('https://my.api.mockaroo.com/similarity_matrix/#{isbn}.json?key=da404bc0')
+    HTTParty.get("https://my.api.mockaroo.com/similarity_ranking/#{isbn}.json?key=da404bc0")
   end
 end

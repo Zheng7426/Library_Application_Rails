@@ -24,4 +24,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   get '/internal' => 'books#internal', as: 'internal'
+  get '/actions' => 'books#actions', as: 'book_actions'
+  get '/promote' => 'books#promote', as: 'book_promote'
+  get '/promption-list' => 'books#promotion_list', as: 'promo_list'
 end

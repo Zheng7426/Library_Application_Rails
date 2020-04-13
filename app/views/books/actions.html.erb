@@ -1,0 +1,60 @@
+<!--<p id="notice"><%#= notice %></p>-->
+<h1>Action Page</h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @book.author %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @book.summary %>
+</p>
+
+<p>
+  <strong>Genre:</strong>
+  <%= @book.genre %>
+</p>
+
+<p>
+  <strong>ISBN:</strong>
+  <%= @book.isbn %>
+</p>
+
+<hr>
+<h1>Similar Books</h1>
+<table>
+  <thead>
+  <tr>
+    <th>ISBN</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Similarity Ranking</th>
+    <th colspan="5"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @similarity["similarity_table"].each do |book| %>
+    <tr>
+      <td><%= book["ISBN"] %></td>
+      <td><%= book["title"] %></td>
+      <td><%= book["author"]%></td>
+      <td><%= book["similarity_ranking"]%></td>
+      <td>
+        <%= link_to "Add to Promotion List", book_promote_path(book:book, isbn: @similarity["isbn"]), method: :get, class: "btn btn-success" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<hr>
+
+<%= link_to 'Back', internal_path, class: "btn btn-primary" %>
+<%= link_to 'Promotion List', promo_list_path(isbn: @similarity["isbn"]), class: "btn btn-primary" %>

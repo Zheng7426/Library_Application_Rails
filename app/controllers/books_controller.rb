@@ -1,7 +1,10 @@
 class BooksController < ApplicationController
-  skip_before_action :check_internal, only: [:internal, :purchase, :procurement_list]
+  skip_before_action :check_internal, only: [:internal, :purchase, :procurement_list, :actions, :promote, :promotion_list]
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   helper_method :get_book
+
+  #global promotion list
+  $promotion_list = []
 
   # GET /books
   # GET /books.json
@@ -122,6 +125,26 @@ class BooksController < ApplicationController
     @books_return = filter_book_list_hash(@new_books, @genre, @genre_id)
   end
 
+  def actions
+    @book = Book.find_by_isbn(params[:isbn])
+    @similarity = Book.similarity_ranking(params[:isbn])
+    @similarity["similarity_table"] = JSON.load(@similarity["similarity_table"])
+  end
+
+  def promote
+    if $promotion_list.detect {|b| b["ISBN"]==params["book"]["ISBN"]}.nil?
+      $promotion_list<<params[:book]
+      @notice = "You added  #{params["book"]["title"]}  to the promotion list"
+    else
+      @notice = "#{params["book"]["title"]}  is already on the promotion list"
+    end
+    redirect_to book_actions_path(isbn: params[:isbn]), notice: "#{@notice}"
+  end
+
+  def promotion_list
+    @isbn = params[:isbn]
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
@@ -155,5 +178,9 @@ class BooksController < ApplicationController
 
     def get_book(books, isbn)
       books.where(isbn:isbn)
+    end
+
+    def clear_promotion_list
+      $promotion_list = []
     end
 end

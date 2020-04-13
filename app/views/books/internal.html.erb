@@ -26,6 +26,7 @@
       <td><%= book["future_ranking"]%></td>
       <td>
         <%= link_to "Add to Procurement List", purchase_book_path(get_book(@books, book["isbn"]), isbn: book["isbn"], selection: "purchase_more"), method: :put, class: "btn btn-success" %>
+        <%= link_to "Actions", book_actions_path(get_book(@books, book["isbn"]), isbn: book["isbn"], selection: "Actions"), method: :get, class: "btn btn-warning" %>
       </td>
     </tr>
   <% end %>
@@ -33,4 +34,4 @@
 </table>
 
 <br>
-<%= link_to 'Procurement List', list_path %>
+<%= link_to 'Procurement List', list_path, class: "btn btn-primary" %>
