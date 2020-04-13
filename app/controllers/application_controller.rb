@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :ensure_login, :check_internal
+  before_action :ensure_login
   helper_method :logged_in?, :current_user, :logged_in_as_employee?
 
   protected

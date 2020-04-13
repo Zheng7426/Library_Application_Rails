@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  skip_before_action :check_internal, only: [:internal, :purchase, :procurement_list, :actions, :promote, :promotion_list]
+  #skip_before_action :check_internal, only: [:internal, :purchase, :procurement_list, :actions, :promote, :promotion_list]
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   helper_method :get_book
 
@@ -107,22 +107,22 @@ class BooksController < ApplicationController
   end
 
   def internal
-    @books = Book.all
-    @popularities = Book.popularity
-
-    #append "future_ranking" to new_books, and sort according to it
-    @new_books = @books.as_json
-    @new_books.each do |obj|
-      obj["future_ranking"] = (@popularities.detect {|p| p["ISBN"].to_s==obj["isbn"]})["future_ranking"]
-    end
-    @new_books = @new_books.sort_by {|k| k["future_ranking"]}
-
-    #prepare and format genre list
-    @genre = get_formatted_genre_list(@new_books)
-
-    #get genre id to display
-    @genre_id = (params[:genre_id].to_i||1).clamp(1, @genre.length)
-    @books_return = filter_book_list_hash(@new_books, @genre, @genre_id)
+    # @books = Book.all
+    # @popularities = Book.popularity
+    #
+    # #append "future_ranking" to new_books, and sort according to it
+    # @new_books = @books.as_json
+    # @new_books.each do |obj|
+    #   obj["future_ranking"] = (@popularities.detect {|p| p["ISBN"].to_s==obj["isbn"]})["future_ranking"]
+    # end
+    # @new_books = @new_books.sort_by {|k| k["future_ranking"]}
+    #
+    # #prepare and format genre list
+    # @genre = get_formatted_genre_list(@new_books)
+    #
+    # #get genre id to display
+    # @genre_id = (params[:genre_id].to_i||1).clamp(1, @genre.length)
+    # @books_return = filter_book_list_hash(@new_books, @genre, @genre_id)
   end
 
   def actions

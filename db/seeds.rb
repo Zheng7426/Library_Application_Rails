@@ -6,7 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 #
+#byebug
 Book.destroy_all
+
 User.destroy_all
 
 users = User.create! [
@@ -23,7 +25,7 @@ users = User.create! [
                          { name: 'Freddie', password: 'abc123', employee_number: '1' }
                      ]
 
-Book.create! [
+books = Book.create! [
                  # hardcover non-fiction
                  { title: 'The Mamba Mentality',
                    author: 'Kobe Bryant',
@@ -134,11 +136,11 @@ Book.create! [
 
              ]
 
-becoming = Book.find_by(title: 'Becoming')
-becoming.comments.create! [
-                             { title: 'Wow', note: 'Good Stuff!' },
-                             { title: 'Intriguing', note: 'Does not put you to sleep.' }
-                         ]
+# becoming = Book.find_by(title: 'Becoming')
+# becoming.comments.create! [
+#                              { title: 'Wow', note: 'Good Stuff!' },
+#                              { title: 'Intriguing', note: 'Does not put you to sleep.' }
+#                          ]
 
 
 

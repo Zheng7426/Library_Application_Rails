@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\Ken Tsoi\OneDrive - HKUST Connect\Dev\ROR\Library_Application_Rails\db\development.sqlite3</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="development [2]" uuid="f33f6e59-8437-43f8-af56-2397bb4b12cc">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/development.sqlite3</jdbc-url>
+    </data-source>
   </component>
 </project>

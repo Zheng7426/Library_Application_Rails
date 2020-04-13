@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :ensure_login, only: [:new, :create]
-  skip_before_action :check_internal
+  #skip_before_action :check_internal
 
   def new
   end
