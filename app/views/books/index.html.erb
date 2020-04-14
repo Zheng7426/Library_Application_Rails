@@ -26,6 +26,11 @@
             <%= link_to "favorite",   favorite_book_path(book, type: "favorite"), method: :put, class: "btn btn-success" %>
             <%= link_to "unfavorite", favorite_book_path(book, type: "unfavorite"), method: :put, class: "btn btn-warning" %>
         </td>
+        <td>
+          <% if current_user.employee_role? %>
+            Employee Section
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
