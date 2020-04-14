@@ -11,4 +11,7 @@ class User < ApplicationRecord
 
   has_many :book_orders
   has_many :selected, through: :book_orders, source: :book
+
+  #ActiveStorage
+  has_one_attached :avatar
 end

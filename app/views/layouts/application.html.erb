@@ -10,42 +10,41 @@
   </head>
 
   <body>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(42,89,138);">
-    <a class="navbar-brand" href="#"><%= image_tag("logo.png") %></a>
-  </nav>
-  <%# if logged_in? %>
-<!--  <div style="float:right">-->
-<!--    Logged in as <%#= current_user.name %> |-->
-    <%#= link_to 'Logout', logout_path, method: :delete %>
-<!--  </div>-->
-
-  <%# elsif logged_in_as_employee? %>
-<!--    <div style="float:right">-->
-<!--      Logged in as Employee <%#= current_user.name %> |-->
-      <%#= link_to 'Logout', logout_path, method: :delete %>
-<!--    </div>-->
-  <%# end %>
-
-  <%# flash.each do |key, value| %>
-<!--  <p id="<%#= key %>"><%#= value %></p>-->
-  <%# end %>
-  <div class="container">
-    <p class="navbar-text float-right">
+  <nav class="navbar navbar-light justify-content-between mb-4" style="background-color: rgb(42,89,138);">
+    <a class="navbar-brand" href="<%= root_path %>"><%= image_tag("logo.png") %></a>
+    <span class="navbar-text">
+      <% if notice %>
+        <span class="alert alert-success"><%= notice %></span>
+      <% end %>
+      <% if alert %>
+        <span class="alert alert-danger"><%= alert %></span>
+      <% end %>
+    </span>
+    <span class="navbar-text text-light">
       <% if user_signed_in? %>
         Logged in as <strong><%= current_user.email %></strong>.
-        <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+        <%= link_to 'Edit profile', edit_user_registration_path, :class => 'btn btn-sm btn-primary text-light' %> |
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-sm btn-success text-light'  %>
       <% else %>
-        <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-        <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+        <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-sm btn-primary text-light'  %> |
+        <%= link_to "Login", new_user_session_path, :class => 'btn btn-sm btn-success text-light'  %>
       <% end %>
-    </p>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
+    </span>
+
+<!--    <form class="form-inline">-->
+<!--      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--    </form>-->
+  </nav>
+
+
+
+<!--  <div>-->
+    <%# if @user.avatar.attached? %>
+      <%#= image_tag @user.avatar %>
+    <%# end %>
+<!--  </div>-->
+  <div class="container">
     <%= yield %>
   </div>
   </body>
