@@ -31,7 +31,7 @@ gem 'json', '~> 2.3.0'
 gem 'devise'
 gem 'cancancan'
 gem 'activestorage'
-
+gem 'mini_magick', '~> 4.5', '>= 4.5.1'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
