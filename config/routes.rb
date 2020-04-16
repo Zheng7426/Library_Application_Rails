@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post 'user_token' => 'user_token#create'
   devise_for :users
   # get 'users/new'
   # get 'users/create'
@@ -28,4 +29,12 @@ Rails.application.routes.draw do
   get '/actions' => 'books#actions', as: 'book_actions'
   get '/promote' => 'books#promote', as: 'book_promote'
   get '/promption-list' => 'books#promotion_list', as: 'promo_list'
+
+  namespace :api, defaults: { format: 'json' } do
+    get 'books/search' => 'books#search'
+    post 'user_token' => 'user_token#create'
+    post 'find_user' => 'users#find'
+    resources :users
+    resources :books
+  end
 end

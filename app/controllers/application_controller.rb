@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
   #helper_method :logged_in?, :logged_in_as_employee?
-
+  respond_to :json
   protected
   # def ensure_login
   #   redirect_to login_path unless session[:employee_number] || session[:user_id]

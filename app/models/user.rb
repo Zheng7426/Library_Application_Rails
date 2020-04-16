@@ -14,4 +14,5 @@ class User < ApplicationRecord
 
   #ActiveStorage
   has_one_attached :avatar
+
 end

@@ -32,6 +32,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'activestorage'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
+gem 'jwt'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
