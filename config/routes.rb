@@ -21,8 +21,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     get 'books/search' => 'books#search'
-    post 'user_token' => 'user_token#create'
+    # post 'user_token' => 'user_token#create'
     # post 'find_user' => 'users#find'
+    post :auth, to: "authentication#create"
     resources :users
     resources :books
   end
