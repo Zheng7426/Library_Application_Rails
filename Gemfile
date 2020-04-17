@@ -22,7 +22,7 @@ gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-#gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap', '~> 4.0'
 gem 'jquery-rails'
 gem 'rails_12factor', group: :production
@@ -32,7 +32,11 @@ gem 'devise'
 gem 'cancancan'
 gem 'activestorage'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
+#gem 'devise-jwt', '~> 0.6.0'
+gem 'knock'
 gem 'jwt'
+# gem 'rack-cors'
+# gem 'active_model_serializers'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
