@@ -1,11 +1,10 @@
 class ApplicationController < ActionController::Base
-  before_action :check_internal
-  # before_action :ensure_login
-
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
+  before_action :check_internal
   #helper_method
   # protect_from_forgery with: :null_session
+  #
 
   def check_internal
     redirect_to internal_path if current_user.employee_role
