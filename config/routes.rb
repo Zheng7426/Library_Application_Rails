@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
 
-  devise_for :users, controllers: {sessions: "users/sessions"}
+  devise_for :users,
+             :controllers  => {
+                 :registrations => 'users/registrations',
+                 :sessions => 'users/sessions',
+                 :passwords => 'users/passwords',
+                 :unlocks => 'users/unlocks',
+                 :confirmations => 'users/confirmations',
+             }
 
   get '/bookmark' => 'books#bookmark', as: 'bookmark'
   get '/procurement-list' => 'books#procurement_list', as: 'list'

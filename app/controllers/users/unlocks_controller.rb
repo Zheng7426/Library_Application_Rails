@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::UnlocksController < Devise::UnlocksController
+  skip_before_action :check_internal
+
   # GET /resource/unlock/new
   # def new
   #   super
