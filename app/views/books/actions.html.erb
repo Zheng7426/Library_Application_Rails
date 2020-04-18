@@ -44,10 +44,10 @@
     <tr>
       <td><%= book["ISBN"] %></td>
       <td><%= book["title"] %></td>
-      <td><%= book["author"]%></td>
-      <td><%= book["similarity_ranking"]%></td>
+      <td><%= book["author"] %></td>
+      <td><%= book["similarity_ranking"] %></td>
       <td>
-        <%= link_to "Add to Promotion List", book_promote_path(book:book, isbn: @similarity["isbn"]), method: :get, class: "btn btn-success" %>
+        <%= is_book_in_promotion_list(book) ? (link_to "Remove", book_unpromote_path(book: book, isbn: @similarity["isbn"]), method: :get, class: "btn btn-warning") : (link_to "Promote", book_promote_path(book: book, isbn: @similarity["isbn"]), method: :get, class: "btn btn-success") %>
       </td>
     </tr>
   <% end %>

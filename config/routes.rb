@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :books do
       put :favorite, on: :member
       put :purchase, on: :member
+      put :unpurchase, on: :member
       resources :comments, only: [:create, :destroy]
   end
   root 'books#index'
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   get '/internal' => 'books#internal', as: 'internal'
   get '/actions' => 'books#actions', as: 'book_actions'
   get '/promote' => 'books#promote', as: 'book_promote'
+  get '/unpromote' => "books#unpromote", as: 'book_unpromote'
   get '/promption-list' => 'books#promotion_list', as: 'promo_list'
 
 

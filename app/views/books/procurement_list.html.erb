@@ -12,9 +12,9 @@
     <tr>
       <td><%= book.title %></td>
       <td><%= book.author %></td>
-      <td><%= link_to 'Show', book %></td>
+      <td><%= link_to "Remove", unpurchase_book_path(get_book(@books, book["isbn"]), isbn: book["isbn"], state: "procurement_list"), method: :put, class: "btn btn-warning" %>
     </tr>
   <% end %>
   </tbody>
 </table>
-<%= link_to 'Back', root_path %>
+<%= link_to 'Back', root_path, class: "btn btn-primary"  %>

@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
-  #skip_before_action :check_internal, only: [:internal, :purchase, :procurement_list, :actions, :promote, :promotion_list]
+  skip_before_action :check_internal, only: [:internal, :purchase, :unpurchase, :procurement_list, :actions, :promote, :unpromote, :promotion_list]
   before_action :set_book, only: [:show, :edit, :update, :destroy]
-  helper_method :get_book
+  helper_method :get_book, :is_book_in_procurement_list, :is_book_in_promotion_list
 
   #global promotion list
   $promotion_list = []
@@ -13,9 +13,9 @@ class BooksController < ApplicationController
 
     #prepare and format genre list
     @genre = get_formatted_genre_list(@books.as_json)
-    @genre_id = (params[:genre_id].to_i||1).clamp(1, @genre.length)
+    @genre_id = (params[:genre_id].to_i || 1).clamp(1, @genre.length)
     @books_return = filter_book_list_activerecord(@books, @genre, @genre_id)
-      #@books_return = filter_book_list_activerecord(@books, @genre
+    #@books_return = filter_book_list_activerecord(@books, @genre
 
   end
 
@@ -91,99 +91,132 @@ class BooksController < ApplicationController
 
   def purchase
     @book = Book.find_by_isbn(params[:isbn])
-    selection = params[:selection]
-    if selection == "purchase_more"
-      if current_user.selected.detect {|b| b.isbn.to_s == params[:isbn] }.nil?
-        current_user.selected << @book
-        @notice = "You added  #{@book.title}  to the procurement list"
-      else
-        @notice = "#{@book.title}  is already on the procurement list"
-      end
-      redirect_to root_path, notice: "#{@notice}"
+    if !is_book_in_procurement_list(@book.as_json)
+      current_user.selected << @book
+      @notice = "<#{@book.title}> added for procurement"
     else
-      redirect_to root_path, notice: "All good."
+      @notice = "<#{@book.title}> already exists"
+    end
+    redirect_to internal_path(genre_id: params[:genre_id]) #, notice: "#{@notice}"
+  end
+
+  def unpurchase
+    @book = Book.find_by_isbn(params[:isbn])
+    if !is_book_in_procurement_list(@book.as_json)
+      @notice = "<#{@book.title}> not in purchase list"
+    else
+      id = current_user.selected.find_by(isbn: @book.isbn)
+      current_user.selected.delete(id)
+      @notice = "<#{@book.title}> removed from purchase list"
+    end
+
+    if params[:state] == "internal"
+      redirect_to internal_path(genre_id: params[:genre_id]) #, notice: "#{@notice}"
+    elsif params[:state] == "procurement_list"
+      redirect_to list_path #, notice: "#{@notice}"
     end
   end
 
   def procurement_list
+    @books = Book.all
   end
 
   def internal
-    # @books = Book.all
-    # @popularities = Book.popularity
-    #
-    # #append "future_ranking" to new_books, and sort according to it
-    # @new_books = @books.as_json
-    # @new_books.each do |obj|
-    #   obj["future_ranking"] = (@popularities.detect {|p| p["ISBN"].to_s==obj["isbn"]})["future_ranking"]
-    # end
-    # @new_books = @new_books.sort_by {|k| k["future_ranking"]}
-    #
-    # #prepare and format genre list
-    # @genre = get_formatted_genre_list(@new_books)
-    #
-    # #get genre id to display
-    # @genre_id = (params[:genre_id].to_i||1).clamp(1, @genre.length)
-    # @books_return = filter_book_list_hash(@new_books, @genre, @genre_id)
+    @books = Book.all
+    @popularities = Book.popularity
+
+    #append "future_ranking" to new_books, and sort according to it
+    @new_books = @books.as_json
+    @new_books.each do |obj|
+      obj["future_ranking"] = (@popularities.detect { |p| p["ISBN"].to_s == obj["isbn"] })["future_ranking"]
+    end
+    @new_books = @new_books.sort_by { |k| k["future_ranking"] }
+
+    #prepare and format genre list
+    @genre = get_formatted_genre_list(@new_books)
+
+    #get genre id to display
+    @genre_id = (params[:genre_id].to_i || 1).clamp(1, @genre.length)
+    @books_return = filter_book_list_hash(@new_books, @genre, @genre_id)
   end
 
   def actions
     @book = Book.find_by_isbn(params[:isbn])
     @similarity = Book.similarity_ranking(params[:isbn])
-    @similarity = @similarity.detect {|b| b["isbn"].to_s == params[:isbn]} #workaround for Mockaroo bug
+    @similarity = @similarity.detect { |b| b["isbn"].to_s == params[:isbn] } #workaround for Mockaroo bug
     @similarity["similarity_table"] = JSON.load(@similarity["similarity_table"])
   end
 
   def promote
-    if $promotion_list.detect {|b| b["ISBN"]==params["book"]["ISBN"]}.nil?
-      $promotion_list<<params[:book]
-      @notice = "You added  #{params["book"]["title"]}  to the promotion list"
+    if $promotion_list.detect { |b| b["ISBN"] == params["book"]["ISBN"] }.nil?
+      $promotion_list << params[:book]
+      @notice = "<#{params["book"]["title"]}> added to promotion"
     else
-      @notice = "#{params["book"]["title"]}  is already on the promotion list"
+      @notice = "<#{params["book"]["title"]}> already on promotion"
     end
-    redirect_to book_actions_path(isbn: params[:isbn]), notice: "#{@notice}"
+    redirect_to book_actions_path(isbn: params[:isbn]) #, notice: "#{@notice}"
+  end
+
+  def unpromote
+    if $promotion_list.detect { |b| b["ISBN"] == params["book"]["ISBN"] }.nil?
+      @notice = "<#{params["book"]["title"]}> not in promotion"
+    else
+      $promotion_list.delete_if { |b| b["ISBN"] == params["book"]["ISBN"] }
+      @notice = "<#{params["book"]["title"]}> removed from promotion"
+    end
+    redirect_to book_actions_path(isbn: params[:isbn]) #, notice: "#{@notice}"
   end
 
   def promotion_list
     @isbn = params[:isbn]
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
+  #private
 
-    # Only allow a list of trusted parameters through.
-    def book_params
-      params.require(:book).permit(:title, :author)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
 
-    #get all the genres, and format it to the format of pull-down selector
-    #books in JSON format
-    def get_formatted_genre_list(books)
-      temp = books.map{|x| x["genre"]}.uniq
+  # Only allow a list of trusted parameters through.
+  def book_params
+    params.require(:book).permit(:title, :author)
+  end
 
-      genre = []
-      temp.each do |x|
-        genre << [x, temp.find_index(x)+1]
-      end
-      return genre
-    end
+  #get all the genres, and format it to the format of pull-down selector
+  #books in JSON format
+  def get_formatted_genre_list(books)
+    temp = books.map { |x| x["genre"] }.uniq
 
-    def filter_book_list_hash(books, genre, genre_id)
-      books.select {|b| b["genre"]==genre[genre_id-1][0]}
+    genre = []
+    temp.each do |x|
+      genre << [x, temp.find_index(x) + 1]
     end
+    return genre
+  end
 
-    def filter_book_list_activerecord(books, genre, genre_id)
-      books.find_all {|b| b.genre == genre[genre_id-1][0]}
-    end
+  def filter_book_list_hash(books, genre, genre_id)
+    books.select { |b| b["genre"] == genre[genre_id - 1][0] }
+  end
 
-    def get_book(books, isbn)
-      books.where(isbn:isbn)
-    end
+  def filter_book_list_activerecord(books, genre, genre_id)
+    books.find_all { |b| b.genre == genre[genre_id - 1][0] }
+  end
 
-    def clear_promotion_list
-      $promotion_list = []
-    end
+  def get_book(books, isbn)
+    books.where(isbn: isbn)
+  end
+
+  def clear_promotion_list
+    $promotion_list = []
+  end
+
+  def is_book_in_promotion_list(book)
+    !$promotion_list.detect { |b| b["ISBN"] == book["ISBN"] }.nil?
+  end
+
+  def is_book_in_procurement_list(book)
+    !current_user.selected.detect { |b| b.isbn.to_s == book["isbn"] }.nil?
+  end
+
 end
