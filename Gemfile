@@ -33,12 +33,12 @@ gem 'cancancan'
 gem 'activestorage'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
 #gem 'devise-jwt', '~> 0.6.0'
-gem 'knock'
+#gem 'knock'
 gem 'jwt'
 # gem 'rack-cors'
 # gem 'active_model_serializers'
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.10.3'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
