@@ -4,9 +4,9 @@ class CommentsController < ApplicationController
   def create
     @comment = @book.comments.new(comment_params)
     if @comment.save
-      redirect_to @book, notice: 'Comment successfully added!'
+      redirect_to book_path(@book, state:params["comment"]["state"]), notice: 'Comment successfully added!'
     else
-      redirect_to @book, alert: 'Unable to add comment!'
+      redirect_to book_path(@book, state:params["comment"]["state"]), alert: 'Unable to add comment!'
     end
   end
 

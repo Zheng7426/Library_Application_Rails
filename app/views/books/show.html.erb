@@ -25,7 +25,7 @@
   <%= @book.isbn %>
 </p>
 
-<%= link_to 'Edit', edit_book_path(@book) %> |
+<!--%= link_to 'Edit', edit_book_path(@book) %-->
 
 <div id="comments">
   <%= render @book.comments %>
@@ -41,15 +41,19 @@
     <div class="field">
       <%= f.label :note %>
       <%= f.text_area :note,  size: '25x5' %>
+      <%= f.hidden_field :state, value: @state %>
     </div>
 
     <div class="actions">
-      <%= f.submit 'Add New Note' %>
+      <%= f.submit 'Add Note', class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>
 
+<hr>
 
-
-
-<%= link_to 'Back', books_path %>
+<% if @state == "root" %>
+  <%= link_to 'Back', root_path, class: "btn btn-success" %>
+<% elsif @state == "bookmark" %>
+  <%= link_to 'Back', bookmark_path, class: "btn btn-success" %>
+<% end %>

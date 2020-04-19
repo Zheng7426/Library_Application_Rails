@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   skip_before_action :check_internal, only: [:internal, :purchase, :unpurchase, :procurement_list, :actions, :promote, :unpromote, :promotion_list]
   before_action :set_book, only: [:show, :edit, :update, :destroy]
-  helper_method :get_book, :is_book_in_procurement_list, :is_book_in_promotion_list
+  helper_method :get_book, :is_book_in_procurement_list, :is_book_in_promotion_list, :is_book_in_favorite_list
 
   #global promotion list
   $promotion_list = []
@@ -15,14 +15,14 @@ class BooksController < ApplicationController
     @genre = get_formatted_genre_list(@books.as_json)
     @genre_id = (params[:genre_id].to_i || 1).clamp(1, @genre.length)
     @books_return = filter_book_list_activerecord(@books, @genre, @genre_id)
-    #@books_return = filter_book_list_activerecord(@books, @genre
-
   end
 
   # GET /books/1
   # GET /books/1.json
   def show
-
+    if !params[:state].nil?
+      @state = params[:state]
+    end
   end
 
   # GET /books/new
@@ -80,10 +80,14 @@ class BooksController < ApplicationController
     type = params[:type]
     if type == "favorite"
       current_user.favorites << @book
-      redirect_to root_path, notice: "You favorited #{@book.title}"
+      redirect_to root_path(genre_id: params[:genre_id])#, notice: "You favorited #{@book.title}"
     elsif type == "unfavorite"
       current_user.favorites.delete(@book)
-      redirect_to root_path, notice: "Unfavorited #{@book.title}"
+      if params[:state] == "bookmark"
+        redirect_to bookmark_path#, notice: "Unfavorited #{@book.title}"
+      elsif params[:state] == "root"
+        redirect_to root_path(genre_id: params[:genre_id])#, notice: "Unfavorited #{@book.title}"
+      end
     else
       redirect_to root_path, notice: "All good."
     end
@@ -217,6 +221,10 @@ class BooksController < ApplicationController
 
   def is_book_in_procurement_list(book)
     !current_user.selected.detect { |b| b.isbn.to_s == book["isbn"] }.nil?
+  end
+
+  def is_book_in_favorite_list(book)
+    !current_user.favorites.detect { |b| b.isbn.to_s == book["isbn"] }.nil?
   end
 
 end

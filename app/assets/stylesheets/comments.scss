@@ -9,12 +9,17 @@
 
 .note-title {
   font-weight: bold;
+  font-size: 15px;
+}
+
+.note-createtime {
+  font-weight: bold;
   font-size: 12px;
 }
 
 .note {
   background: black;
-  margin: 15px;
+  margin: 12px;
   padding: 5px;
   border: 1px solid;
   border-radius: 5px;

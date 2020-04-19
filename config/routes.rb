@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       put :favorite, on: :member
       put :purchase, on: :member
       put :unpurchase, on: :member
+      get :show
       resources :comments, only: [:create, :destroy]
   end
   root 'books#index'

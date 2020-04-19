@@ -24,7 +24,9 @@
       <td><%= book["author"]%></td>
       <td><%= book["future_ranking"]%></td>
       <td>
-        <%= is_book_in_procurement_list(book) ? (link_to "Remove", unpurchase_book_path(get_book(@books, book["isbn"]), isbn: book["isbn"], genre_id: @genre_id, state: "internal"), method: :put, class: "btn btn-warning") : (link_to "Acquire", purchase_book_path(get_book(@books, book["isbn"]), isbn: book["isbn"], genre_id: @genre_id), method: :put, class: "btn btn-success") %>
+        <%= is_book_in_procurement_list(book) ?
+                (link_to "Remove", unpurchase_book_path(get_book(@books, book["isbn"]), isbn: book["isbn"], genre_id: @genre_id, state: "internal"), method: :put, class: "btn btn-warning")
+                : (link_to "Acquire", purchase_book_path(get_book(@books, book["isbn"]), isbn: book["isbn"], genre_id: @genre_id), method: :put, class: "btn btn-success") %>
         <%= link_to "Actions", book_actions_path(get_book(@books, book["isbn"]), isbn: book["isbn"], selection: "Actions"), method: :get, class: "btn btn-dark" %>
       </td>
     </tr>

@@ -1,9 +1,16 @@
 <div class="note">
   <div>
     <span class="note-title">
-      <%= "#{comment.title} (#{time_ago_in_words comment.created_at} ago)" %>
+      <%= "#{comment.title} " %>
     </span>
-    <%= link_to 'Delete Comment', [@book, comment], method: :delete %>
+    <!--%= link_to 'Delete Comment', [@book, comment], method: :delete %-->
   </div>
+
   <div><p><%= comment.note %></p></div>
+
+  <div>
+    <span class="note-createtime">
+      <%= "(#{time_ago_in_words comment.created_at} ago)" %>
+    </span>
+  </div>
 </div>
