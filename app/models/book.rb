@@ -10,9 +10,6 @@ class Book < ApplicationRecord
   has_many :book_orders
   has_many :selected_by, through: :book_orders, source: :user
 
-  # one-to-one
-  # has_one :popularity, foreign_key: :isbn, class_name: "Popularity"
-
   def self.popularity()
     HTTParty.get("https://my.api.mockaroo.com/popularity.json?key=da404bc0")
   end
