@@ -7,7 +7,7 @@ class Api::CommentsController < ApiController
 
   def show
     #@comment = @book.comments.find(params[:id])
-    @book = Book.find_by(params[:id])
+    @book = Book.find_by(id: params[:id])
     if @book
       render json: @book.comments
     else
