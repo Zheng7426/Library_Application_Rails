@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     # post 'user_token' => 'user_token#create'
     # post 'find_user' => 'users#find'
     post :auth, to: "authentication#create"
+    resources :comments
     resources :users
     resources :books
   end
