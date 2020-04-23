@@ -1,17 +1,18 @@
 class Api::UsersController < ApiController
   def index
-    render json: User.all
-  end
-
-  def show
-    user = User.find_by(params[:id])
-    if user
-      render json: user
+    if !params[:email].nil?
+      render json: User.where(email: params[:email])
     else
-      render json: { error: 'User not found' }, status: 404
+      render json: User.all
     end
   end
 
-
+  def show
+    if !params[:id].nil?
+      render json: User.find(params[:id])
+    else
+      render json: {error: 'User not found'}, status: 404
+    end
+  end
 end
 
