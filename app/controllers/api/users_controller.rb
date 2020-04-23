@@ -8,11 +8,9 @@ class Api::UsersController < ApiController
   end
 
   def show
-    if !params[:id].nil?
-      render json: User.find(params[:id])
-    else
-      render json: {error: 'User not found'}, status: 404
-    end
+    render json: User.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: {error: 'User not found'}, status: 404
   end
 end
 
