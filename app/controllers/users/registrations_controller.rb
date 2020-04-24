@@ -13,7 +13,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   # def create
-  #   super
+  #   super do |resource|
+  #   NotificationMailer.send_signup_email(resource).deliver
+  #   # redirect_to(resource, :notice => 'User created')
+  #   end
   # end
 
   # GET /resource/edit

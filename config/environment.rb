@@ -3,8 +3,9 @@ require_relative 'application'
 
 #Sendgrid Configuration
 ActionMailer::Base.smtp_settings = {
-    :user_name => 'apiKey',
+    :user_name => 'Api_key',
     :password => Rails.application.secrets.sendgrid_api_key,
+    # :password => Rails.application.secrets.sendgrid_password,
     :domain => 'yourdomain.com',
     :address => 'smtp.sendgrid.net',
     :port => 465,
