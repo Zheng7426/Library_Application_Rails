@@ -6,7 +6,7 @@ class Api::BookmarksController < ApiController
   def show
     @user = User.find_by(id: params[:id])
     if @user
-      render json: {user_id: params[:id], book_list: @user.favorites}
+      render json: {user_id: params[:id], book_list: @user.favorites.each_with_object([]) { |h,a| a << h["id"] }}
     else
       render json: {error: 'Bookmark not found'}, status: 404
     end
