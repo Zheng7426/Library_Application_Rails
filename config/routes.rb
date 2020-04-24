@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  post 'user_token' => 'user_token#create'
+  #post 'user_token' => 'user_token#create'
 
   devise_for :users,
              :controllers  => {
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
     resources :users
     resources :books
-    resources :bookmarks, only: [:show]
+    resources :bookmarks
     resources :comments, only: [:show]
   end
 end

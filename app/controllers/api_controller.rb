@@ -8,6 +8,8 @@ class ApiController < ActionController::Base
   before_action :set_default_format
   before_action :authenticate_token!
 
+  helper_method :current_api_user
+
 
   private
 
@@ -23,6 +25,11 @@ class ApiController < ActionController::Base
   rescue JWT::DecodeError
     render json: {errors: ["Invalid auth token"]}, status: :unauthorized
 
+  end
+
+  def current_api_user
+    payload = JsonWebToken.decode(auth_token)
+    @current_api_user = User.find(payload["sub"])
   end
 
   def auth_token
