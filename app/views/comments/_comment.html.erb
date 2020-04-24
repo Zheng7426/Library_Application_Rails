@@ -10,7 +10,7 @@
 
   <div>
     <span class="note-createtime">
-      <%= "(#{time_ago_in_words comment.created_at} ago)" %>
+      <%= "(#{time_ago_in_words comment.created_at} ago)\nby #{current_user.email}" %>
     </span>
   </div>
 </div>
