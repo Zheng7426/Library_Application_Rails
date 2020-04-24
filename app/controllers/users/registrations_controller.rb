@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # POST /resource
+  #POST /resource
   # def create
   #   super do |resource|
   #   NotificationMailer.send_signup_email(resource).deliver
