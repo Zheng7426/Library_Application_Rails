@@ -38,6 +38,6 @@ Rails.application.routes.draw do
     resources :users
     resources :books
     resources :bookmarks
-    resources :comments, only: [:show]
+    resources :comments
   end
 end

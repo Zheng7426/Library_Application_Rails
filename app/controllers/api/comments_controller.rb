@@ -15,10 +15,21 @@ class Api::CommentsController < ApiController
     end
   end
 
-  # private
-  # def set_book
-  #   @book = Book.find(params[:book_id])
-  # end
+
+  def create
+    @book = Book.find_by(id: params[:comment][:book_id])
+    @comment = @book.comments.new(comment_api_params)
+    if @comment.save
+      render json: { notice: 'Comment successfully added!' }
+    else
+      render json: { notice: 'Comment not added!' }
+    end
+  end
+
+  private
+  def comment_api_params
+    params.require(:comment).permit(:book_id, :title, :note)
+  end
 
 end
 
