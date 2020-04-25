@@ -1,18 +1,24 @@
 <!--<p id="notice"><%#= notice %></p>-->
 
 <h1>Books listed according to popularity ranking</h1>
-<%= form_with(local: true, method: "get") do |form| %>
-  <%= select_tag(:genre_id, options_for_select(@genre, @genre_id), :onchange => "this.form.submit();") %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 mb-4 mt-1">
+      <%= form_with(local: true, method: "get") do |form| %>
+        <%= select_tag(:genre_id, options_for_select(@genre, @genre_id), :onchange => "this.form.submit();", class: "custom-select custom-select-lg") %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<table>
+<table class="table table-hover">
   <thead>
   <tr>
-    <th>ISBN</th>
-    <th>Title</th>
-    <th>Author</th>
-    <th>Popularity Ranking</th>
-    <th colspan="5"></th>
+    <th scope="col">ISBN</th>
+    <th scope="col">Title</th>
+    <th scope="col">Author</th>
+    <th scope="col">Popularity Ranking</th>
+    <th scope="col"></th>
   </tr>
   </thead>
 
