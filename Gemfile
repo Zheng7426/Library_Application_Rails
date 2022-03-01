@@ -40,7 +40,7 @@ gem 'jwt'
 # gem 'rack-cors'
 # gem 'active_model_serializers'
 # Use Active Storage variant
-gem 'image_processing', '~> 1.10.3'
+gem 'image_processing', '~> 1.12.2'
 gem 'sendgrid-ruby'
 
 # Reduces boot times through caching; required in config/boot.rb
