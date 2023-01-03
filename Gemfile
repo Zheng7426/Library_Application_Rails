@@ -27,7 +27,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap', '~> 4.0'
 gem 'jquery-rails'
 gem 'rails_12factor', group: :production
-gem 'httparty', '~> 0.18.0'
+gem 'httparty', '~> 0.21.0'
 gem 'json', '~> 2.3.0'
 gem 'devise'
 gem 'cancancan'
